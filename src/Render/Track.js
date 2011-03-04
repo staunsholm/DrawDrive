@@ -17,6 +17,7 @@ DrawDrive.Track = function()
             track.vertices.push(new THREE.Vertex(new THREE.Vector3(dot.x2, dot.z, dot.y2)));
         }
 
+        
 //        var track = new Cube(500, 20, 50, dots.length - 1, 1, 1);
 
         /*// one end
