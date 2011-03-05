@@ -13,7 +13,7 @@ DrawDrive.Painter = function(canvas)
 
     self.lines = [];
 
-    var gridSize = 50;
+    var gridSize = 20;
 
     // Attach the mousedown, mousemove and mouseup event listeners.
     canvas.addEventListener('mousedown', mouseEvent, false);
@@ -72,7 +72,6 @@ DrawDrive.Painter = function(canvas)
             startPoint.y = y;
             
             var z = findZ(x, y);
-            self.lines.push({x: x, y: y, z: z});
 
             if (!prevX) prevX = x;
             if (!prevY) prevY = y;
@@ -97,6 +96,8 @@ DrawDrive.Painter = function(canvas)
             if (!y1) y1 = y3;
             if (!x2) x2 = x4;
             if (!y2) y2 = y4;
+
+            self.lines.push({x: x, y: y, x1:x1, y1:y1, x2:x2, y2:y2, z: z});
 
             var color = "rgb("+ Math.round(z*10) +","+ Math.round(z*10) +","+ Math.round(z*10) +")";
 
@@ -130,9 +131,9 @@ DrawDrive.Painter = function(canvas)
         {
             line = self.lines[i];
             r = (line.x-x)*(line.x-x) + (line.y-y)*(line.y-y);
-            if (r < 50*50)
+            if (r < gridSize*2*gridSize)
             {
-                ztmp = line.z + Math.round(50-Math.sqrt(r));
+                ztmp = line.z + Math.round(gridSize-Math.sqrt(r));
                 if (ztmp > z) z = ztmp;
             }
         }
