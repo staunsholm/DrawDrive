@@ -4,10 +4,10 @@ var Console =
     {
         document.getElementById('console').innerHTML += arg +"<br />";
     },
-    button1: function(label, func)
+    button: function(no, label, func)
     {
-        var button1 = document.getElementById('button1');
-        button1.value = label;
-        button1.onclick = func;
+        var buttonId = document.getElementById('button'+ no);
+        buttonId.innerHTML = label;
+        buttonId.onclick = func;
     }
 };

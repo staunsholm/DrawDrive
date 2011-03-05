@@ -3,7 +3,8 @@
 <head>
     <title>DrawDrive</title>
     <script src="three.js/build/Three.js"></script>
-    <script src="three.js/src/extras/primitives/Cube.js"></script>
+    <script src="three.js/src/extras/primitives/Plane.js"></script>
+    <script src="three.js/src/extras/ImageUtils.js"></script>
     <script src="three.js/examples/js/RequestAnimationFrame.js"></script>
     <script src="three.js/examples/js/Stats.js"></script>
     <script src="src/DrawDrive.js"></script>
@@ -39,7 +40,7 @@
             font-family: courier;
             font-size: 12px;
         }
-        #button1
+        #buttons
         {
             position: absolute;
             right: 10px;
@@ -48,10 +49,14 @@
     </style>
 </head>
 <body id="page">
-    <div id="container">
+    <section id="container">
         <canvas id="canvas"></canvas>
-    </div>
-    <div id="console"></div>
-    <input type="button" id="button1" />
+    </section>
+    <section id="console"></section>
+    <nav id="buttons">
+        <button id="button1" />
+        <button id="button2" />
+        <button id="button3" />
+    </nav>
 </body>
 </html>

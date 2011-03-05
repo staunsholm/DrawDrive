@@ -14,16 +14,12 @@ DrawDrive.Track = function()
         var vertices = track.vertices;
         var verticesHalf = vertices.length >> 1;
 
-        for (i = 0; i < verticesHalf; i++)
-        {
-//            console.log(vertices[i].position, vertices[i+verticesHalf].position);
-        }
-
         for (i = 0, l = dots.length; i < l; i++)
         {
             dot = dots[i];
-            vertices[i+verticesHalf].position.set(dot.x2, dot.y2, dot.z*10);
-            vertices[i].position.set(dot.x1, dot.y1, dot.z*10);
+            dot.z *= 2;
+            vertices[i+verticesHalf].position.set(dot.x2, dot.y2, dot.z);
+            vertices[i].position.set(dot.x1, dot.y1, dot.z);
         }
 
         track.computeCentroids();
