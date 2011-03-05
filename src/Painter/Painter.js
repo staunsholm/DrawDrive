@@ -81,23 +81,22 @@ DrawDrive.Painter = function(canvas)
 
             // rotate 90¡
             v.set(v.y, -v.x);
+            v.multiplyScalar(10);
 
             var x1 = prevX1;
             var y1 = prevY1;
             var x2 = prevX2;
             var y2 = prevY2;
 
-            var x3 = x + v.x*z | 1;
-            var y3 = y + v.y*z | 1;
-            var x4 = x - v.x*z | 1;
-            var y4 = y - v.y*z | 1;
+            var x3 = x + v.x | 1;
+            var y3 = y + v.y | 1;
+            var x4 = x - v.x | 1;
+            var y4 = y - v.y | 1;
 
             if (!x1) x1 = x3;
             if (!y1) y1 = y3;
             if (!x2) x2 = x4;
             if (!y2) y2 = y4;
-
-            self.lines.push({x: x, y: y, x1:x1, y1:y1, x2:x2, y2:y2, z: z});
 
             var color = "rgb("+ Math.round(z*10) +","+ Math.round(z*10) +","+ Math.round(z*10) +")";
 
@@ -116,29 +115,40 @@ DrawDrive.Painter = function(canvas)
             prevX2 = x4;
             prevY2 = y4;
 
+            self.lines.push({x: x, y: y, x1:x1, y1:y1, x2:x2, y2:y2, z: z});
+
             linesDrawn++;
         }
     }
 
     function findZ(x, y)
     {
-        var line;
+        var line, linePrev, lineNext;
         var ztmp;
         var z = 1;
         var r;
-        
-        for (var i = 0; i < linesDrawn; i++)
+
+        for (var i = 1; i < linesDrawn-1; i++)
         {
             line = self.lines[i];
-            r = (line.x-x)*(line.x-x) + (line.y-y)*(line.y-y);
-            if (r < 25*25)
+            linePrev = self.lines[i-1];
+            lineNext = self.lines[i+1];
+            //r = (line.x-x)*(line.x-x) + (line.y-y)*(line.y-y);
+            r = Math.linePointDist(new THREE.Vector2(line.x, line.y), new THREE.Vector2(linePrev.x-line.x, linePrev.y-line.y), new THREE.Vector2(x,y));
+            if (r < 50)
             {
-                ztmp = line.z + Math.round(25-Math.sqrt(r));
+                console.log(r);
+
+                ztmp = line.z;
+                if (linePrev.z >= ztmp) ztmp = linePrev.z;
+                if (lineNext.z >= ztmp) ztmp = lineNext.z;
+                ztmp += Math.round(50-r);
+                
                 if (ztmp > z) z = ztmp;
             }
         }
 
-        z = z/5 + 5;
+        z = z/5 + 15;
 
         return z;
     }

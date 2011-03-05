@@ -140,6 +140,12 @@ THREE.Vector2.prototype = {
 
 		return new THREE.Vector2( this.x, this.y );
 
-	}
+	},
+
+    dot: function (v1,v2) {
+
+        return (v1.x * v2.x) + (v1.y * v2.y);
+
+    }
 
 };

@@ -22,6 +22,8 @@ DrawDrive.Test3D = function(canvas, lines)
 
     this.flyThroughTrack = function()
     {
+        camera.up.set(0,0,1);
+
         var currentLineIndex = 0;
         var currentLine = lines[0];
         var nextLine = lines[1];
@@ -35,15 +37,13 @@ DrawDrive.Test3D = function(canvas, lines)
         {
             pos.x = currentLine.x + (nextLine.x - currentLine.x)*pct;
             pos.y = currentLine.y + (nextLine.y - currentLine.y)*pct;
-            pos.z = currentLine.z + (nextLine.z - currentLine.z)*pct + 5;
+            pos.z = currentLine.z + (nextLine.z - currentLine.z)*pct + 1;
             camera.position.set(pos.x, pos.y, pos.z);
 
             lookAt.x = nextLine.x + (nextNextLine.x - nextLine.x)*pct;
             lookAt.y = nextLine.y + (nextNextLine.y - nextLine.y)*pct;
-            lookAt.z = nextLine.z + (nextNextLine.z - nextLine.z)*pct + 5;
+            lookAt.z = nextLine.z + (nextNextLine.z - nextLine.z)*pct + 1;
             camera.target.position.set(lookAt.x, lookAt.y, lookAt.z);
-
-            camera.up.set(0,0,1);
 
             pct += 0.05;
             if (pct > 1)
@@ -96,10 +96,10 @@ DrawDrive.Test3D = function(canvas, lines)
         { material: new THREE.MeshBasicMaterial( { color: 0x00ffff, wireframe: true } ), overdraw: false, doubleSided: true },
         { material: new THREE.MeshBasicMaterial( { color: 0xff0000, blending: THREE.AdditiveBlending } ), overdraw: false, doubleSided: true },
         { material: new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading } ), overdraw: true, doubleSided: false },
-        { material: new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.SmoothShading } ), overdraw: true, doubleSided: false },
+        { material: new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.SmoothShading } ), overdraw: true, doubleSided: true },
         { material: new THREE.MeshDepthMaterial(), overdraw: true, doubleSided: false },
         { material: new THREE.MeshNormalMaterial(), overdraw: true, doubleSided: false },
-        { material: new THREE.MeshBasicMaterial( { map: ImageUtils.loadTexture( 'three.js/examples/textures/metal.jpg' ) } ), overdraw: false, doubleSided: true },
+        { material: new THREE.MeshBasicMaterial( { map: ImageUtils.loadTexture( 'three.js/examples/textures/metal.jpg' ), shading: THREE.SmoothShading } ), overdraw: false, doubleSided: true },
         { material: new THREE.MeshLambertMaterial( { map: ImageUtils.loadTexture( 'three.js/examples/textures/land_ocean_ice_cloud_2048.jpg' ) } ), overdraw: false, doubleSided: false },
         { material: new THREE.MeshBasicMaterial( { envMap: ImageUtils.loadTexture( 'three.js/examples/textures/envmap.png', new THREE.SphericalReflectionMapping() ) } ), overdraw: false, doubleSided: false }
     ];
