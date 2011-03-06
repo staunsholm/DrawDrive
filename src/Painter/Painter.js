@@ -13,7 +13,7 @@ DrawDrive.Painter = function(canvas)
 
     self.lines = [];
 
-    var gridSize = 25;
+    var gridSize = 10;
 
     // Attach the mousedown, mousemove and mouseup event listeners.
     canvas.addEventListener('mousedown', mouseEvent, false);
@@ -133,16 +133,13 @@ DrawDrive.Painter = function(canvas)
             line = self.lines[i];
             linePrev = self.lines[i-1];
             lineNext = self.lines[i+1];
-            //r = (line.x-x)*(line.x-x) + (line.y-y)*(line.y-y);
             r = Math.linePointDist(new THREE.Vector2(line.x, line.y), new THREE.Vector2(linePrev.x-line.x, linePrev.y-line.y), new THREE.Vector2(x,y));
-            if (r < 50)
+            if (r < 20)
             {
-                console.log(r);
-
                 ztmp = line.z;
                 if (linePrev.z >= ztmp) ztmp = linePrev.z;
                 if (lineNext.z >= ztmp) ztmp = lineNext.z;
-                ztmp += Math.round(50-r);
+                ztmp += Math.round(20-r);
                 
                 if (ztmp > z) z = ztmp;
             }
